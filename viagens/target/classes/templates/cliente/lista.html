@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Clientes</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/Logo.png}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="/" class="btn-inicio">Início</a>
+            <a href="/clientes/novo" class="btn-cadastrar">Cadastrar Cliente</a>
+            <a href="/clientes" class="btn-listar active">Listar Clientes</a>
+            <a href="/reservas" class="btn-reservas">Reservas</a>
+        </div>
+        <div class="user-info">
+            Bruno Shiraishi / Diego Alves
+        </div>
+    </div>
+
+    <div class="lista-container">
+        <h1>Lista de Clientes</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Email</th>
+                    <th>Celular</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.id}"></td>
+                    <td th:text="${cliente.nome}"></td>
+                    <td th:text="${cliente.sobrenome}"></td>
+                    <td th:text="${cliente.email}"></td>
+                    <td th:text="${cliente.celular}"></td>
+                    <td>
+                        <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}">Editar</a>
+                        <a th:href="@{/clientes/deletar/{id}(id=${cliente.id})}">Deletar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

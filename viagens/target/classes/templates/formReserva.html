@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Reserva</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/Logo.png}">
+</head>
+<body>
+
+<h1>Reservar Viagem</h1>
+
+<div class="reserva-container">
+    <p><strong>Destino:</strong> <span th:text="${viagem.destino}"></span></p>
+    <p><strong>Partida:</strong> <span th:text="${viagem.localPartida}"></span></p>
+    <p><strong>Data de Partida:</strong> <span th:text="${#dates.format(viagem.dataPartida, 'dd/MM/yyyy')}"></span></p>
+    <p><strong>Data de Retorno:</strong> <span th:text="${#dates.format(viagem.dataRetorno, 'dd/MM/yyyy')}"></span></p>
+    <p><strong>Preço:</strong> R$ <span th:text="${viagem.preco}"></span></p>
+
+    <form id="reservaForm" action="/reservas/executarReserva" method="post" onsubmit="mostrarModal(event)">
+        <input type="hidden" name="viagemId" th:value="${viagem.id}">
+
+        <label for="clienteId">ID do Cliente:</label>
+        <input type="number" id="clienteId" name="clienteId" required>
+
+        <label for="situacao">Situação:</label>
+        <input type="text" id="situacao" name="situacao" value="Pendente" readonly>
+
+        <button type="submit">Confirmar Reserva</button>
+    </form>
+</div>
+<div id="reservaModal" class="modal">
+    <div class="modal-content">
+        <p>Parabéns, a sua reserva foi confirmada com sucesso!</p>
+        <button onclick="redirecionarInicio()">Ok</button>
+    </div>
+</div>
+<script th:src="@{/reserva.js}"></script>
+</body>
+</html>

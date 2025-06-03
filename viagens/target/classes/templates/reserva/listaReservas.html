@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Reservas</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/Logo.png}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="/" class="btn-inicio">Início</a>
+            <a href="/clientes/novo" class="btn-cadastrar">Cadastrar Cliente</a>
+            <a href="/clientes" class="btn-listar">Listar Clientes</a>
+            <a href="/reservas" class="btn-reservas active">Reservas</a>
+        </div>
+        <div class="user-info">
+            Bruno Shiraishi / Diego Alves
+        </div>
+    </div>
+
+    <div class="lista-container">
+        <h1>Lista de Reservas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Viagem</th>
+                    <th>Data da Reserva</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reserva : ${reservas}">
+                    <td th:text="${reserva.id}"></td>
+                    <td th:text="${reserva.cliente.nome}"></td>
+                    <td th:text="${reserva.viagem.destino}"></td>
+                    <td th:text="${#dates.format(reserva.dataReserva, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${reserva.situacao}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/Logo.png}">
+</head>
+<body>
+<div class="navbar">
+    <div class="nav-links">
+        <a href="/" class="btn-inicio active">Início</a>
+        <a href="/clientes/novo" class="btn-cadastrar">Cadastrar Cliente</a>
+        <a href="/clientes" class="btn-listar">Listar Clientes</a>
+        <a href="/reservas" class="btn-reservas">Reservas</a>
+    </div>
+    <div class="user-info">
+        Bruno Shiraishi / Diego Alves
+    </div>
+</div>
+
+<h1>
+    Do litoral às montanhas: o Brasil tem o destino perfeito pra você
+    <br>
+    <small>As melhores viagens podem estar mais perto do que você imagina!</small>
+</h1>
+
+<div class="cards-container">
+    <div class="card" th:each="viagem, iterStat : ${viagens}" th:if="${iterStat.index < 3}">
+        <img th:src="@{/images/} + ${iterStat.index == 0 ? 'rioJaneiro.jpg' : (iterStat.index == 1 ? 'gramado.jpg' : 'fortaleza.jpg')}" alt="Imagem do destino">
+        <div class="card-content">
+            <h3 th:text="${viagem.destino}">Destino</h3>
+            <p th:text="'Partida: ' + ${viagem.localPartida}">Local de Partida</p>
+            <p th:text="'Data de Partida: ' + ${#dates.format(viagem.dataPartida, 'dd/MM/yyyy')}">Data de Partida</p>
+            <p th:text="'Data de Retorno: ' + ${#dates.format(viagem.dataRetorno, 'dd/MM/yyyy')}">Data de Retorno</p>
+            <p th:text="'Preço: R$ ' + ${viagem.preco}">Preço</p>
+        </div>
+        <button class="btn-reservar" th:onclick="'window.location.href=\'/reservas/form?viagemId=\' + ' + ${viagem.id}">Reservar Agora</button>
+    </div>
+</div>
+
+<h1>
+    "Três destinos, três mundos:
+    <br>
+    <small>viva Dubai, sonhe na Disney, surpreenda-se em Tóquio!</small>
+</h1>
+
+<div class="cards-container">
+    <div class="card" th:each="viagem, iterStat : ${viagens}" th:if="${iterStat.index >= 3}">
+        <img th:src="@{/images/} + ${iterStat.index == 3 ? 'dubai.jpg' : (iterStat.index == 4 ? 'disney.jpg' : 'toquio.png')}" alt="Imagem do destino">
+        <div class="card-content">
+            <h3 th:text="${viagem.destino}">Destino</h3>
+            <p th:text="'Partida: ' + ${viagem.localPartida}">Local de Partida</p>
+            <p th:text="'Data de Partida: ' + ${#dates.format(viagem.dataPartida, 'dd/MM/yyyy')}">Data de Partida</p>
+            <p th:text="'Data de Retorno: ' + ${#dates.format(viagem.dataRetorno, 'dd/MM/yyyy')}">Data de Retorno</p>
+            <p th:text="'Preço: R$ ' + ${viagem.preco}">Preço</p>
+        </div>
+        <button class="btn-reservar" th:onclick="'window.location.href=\'/reservas/form?viagemId=\' + ' + ${viagem.id}">Reservar Agora</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-info">
+            <p>&copy; 2025 B&D Viagens. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

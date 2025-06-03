@@ -1,0 +1,64 @@
+-- Criação do banco de dados
+CREATE DATABASE agencia_viagens;
+USE agencia_viagens;
+
+-- Tabela Cliente
+CREATE TABLE cliente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(100) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    sexo VARCHAR(10) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    celular VARCHAR(20) NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    endereco VARCHAR(255) NOT NULL
+);
+
+INSERT INTO cliente (nome, sobrenome, data_nascimento, sexo, email, celular, cpf, endereco) VALUES
+('Diego', 'Alves', '2004-10-25', 'Masculino', 'diegoafagundess@gmail.com', '(11) 95940-2002', '419.687.808-31', 'Rua Juiz de Fora, 753 - São Paulo, SP'),
+('Bruno', 'Shiraishi', '1990-07-22', 'Masculino', 'bruno.oliveira@hotmail.com', '(21) 99876-5432', '234.567.890-11', 'Av. Brasil, 456 - Rio de Janeiro, RJ'),
+('Carla', 'Mendes', '1988-11-05', 'Feminino', 'carla.mendes@yahoo.com', '(31) 98765-4321', '345.678.901-22', 'Rua Amazonas, 789 - Belo Horizonte, MG'),
+('Diego', 'Lima', '2000-02-15', 'Masculino', 'diego.lima@outlook.com', '(41) 97654-3210', '456.789.012-33', 'Rua Paraná, 321 - Curitiba, PR'),
+('Eduarda', 'Santos', '1998-09-30', 'Feminino', 'eduarda.santos@gmail.com', '(71) 96543-2109', '567.890.123-44', 'Av. Salvador, 654 - Salvador, BA'),
+('Felipe', 'Costa', '1992-01-12', 'Masculino', 'felipe.costa@uol.com.br', '(51) 95432-1098', '678.901.234-55', 'Rua Ipiranga, 111 - Porto Alegre, RS'),
+('Giovana', 'Pereira', '1997-06-18', 'Feminino', 'giovana.pereira@gmail.com', '(61) 94321-0987', '789.012.345-66', 'QS 05, Conjunto C - Brasília, DF'),
+('Henrique', 'Souza', '1985-12-25', 'Masculino', 'henrique.souza@hotmail.com', '(81) 93210-9876', '890.123.456-77', 'Rua Recife, 202 - Recife, PE'),
+('Isabela', 'Fernandes', '1993-08-07', 'Feminino', 'isabela.fernandes@gmail.com', '(85) 92109-8765', '901.234.567-88', 'Av. Beira Mar, 99 - Fortaleza, CE'),
+('João', 'Rodrigues', '1991-04-01', 'Masculino', 'joao.rodrigues@gmail.com', '(95) 91098-7654', '012.345.678-99', 'Rua Macapá, 55 - Boa Vista, RR');
+
+
+-- Tabela Viagem
+CREATE TABLE viagem (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    destino VARCHAR(100) NOT NULL,
+    local_partida VARCHAR(100) NOT NULL,
+    data_partida DATE NOT NULL,
+    data_retorno DATE NOT NULL,
+    preco DECIMAL(10,2) NOT NULL
+);
+
+INSERT INTO viagem (id, destino, local_partida, data_partida, data_retorno, preco) VALUES
+(1, 'Rio de Janeiro', 'Sao Paulo', '2025-07-10', '2025-07-25', 1200),
+(2, 'Gramado', 'Sao Paulo', '2025-08-15', '2025-08-30', 1500),
+(3, 'Fortaleza', 'Sao Paulo', '2025-09-05', '2025-09-15', 1900),
+(4, 'Dubai', 'Sao Paulo', '2025-10-01', '2025-10-15', 7500),
+(5, 'Disney - Orlando', 'Sao Paulo', '2025-12-10', '2025-12-25', 5200),
+(6, 'Tóquio', 'Sao Paulo', '2026-02-05', '2026-02-20', 8500);
+
+-- Tabela Reserva
+CREATE TABLE reserva (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    viagem_id INT NOT NULL,
+    data_reserva DATE NOT NULL,
+    situacao VARCHAR(50) NOT NULL,
+
+    CONSTRAINT fk_reserva_cliente
+        FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_reserva_viagem
+        FOREIGN KEY (viagem_id) REFERENCES viagem(id)
+        ON DELETE CASCADE
+);
